@@ -9,15 +9,16 @@ moves = [-2, -1, 1, 2]
 def is_valid(fmtn, pos):
     return 0 <= pos < len(fmtn)
 
-def is_viable():
-    pass
+def is_viable(fmtn):
+    return fmtn != formation
 
 def backtrack(fmtn: list, pos: int = 0, sln: list = []):
     if is_valid(fmtn, pos):
-        if is_viable(fmtn, pos):
-            # TODO
+        print(fmtn, formation, fmtn == formation)
+        if is_viable(fmtn):
             sln.append(copy.deepcopy(fmtn))
-            if (True):
+            # b r u h
+            if fmtn == list.reverse(formation):
                 print_sol(sln)
             else:
                 for move in moves:

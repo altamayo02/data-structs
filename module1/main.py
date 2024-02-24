@@ -1,10 +1,14 @@
+import copy
+
 from recursion.ws1 import *
 from recursion.ws2 import *
 import backtracking.maze as maze
 import backtracking.chess_horse as chess_horse
+import backtracking.root3 as root3
+import backtracking.skippers as skippers
 
 
-#1.
+'''#1.
 print("Taller 1 - Diagnóstico\n")
 
 sumar_enteros(1, 2)
@@ -37,4 +41,10 @@ print()
 chess_horse.backtrack(chess_horse.table)
 
 # 3.
-print("Taller 3 - Backtracking\n")
+print("Taller 3 - Backtracking\n")'''
+
+# Test
+#root3.exec()
+skippers.backtrack(copy.deepcopy(skippers.formation))
+
+# Survival won
