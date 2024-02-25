@@ -5,7 +5,7 @@ from recursion.ws2 import *
 import backtracking.maze as maze
 import backtracking.chess_horse as chess_horse
 import backtracking.root3 as root3
-import backtracking.skippers as skippers
+from backtracking.skippers import Skippers
 
 
 '''#1.
@@ -45,6 +45,7 @@ print("Taller 3 - Backtracking\n")'''
 
 # Test
 #root3.exec()
-skippers.backtrack(copy.deepcopy(skippers.formation))
+formation = [-1, -1, -1, 0, 1, 1, 1]
+Skippers(formation).exec()
 
 # Survival won
