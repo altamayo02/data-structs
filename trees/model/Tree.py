@@ -43,6 +43,9 @@ class Tree:
             return root
         return None
 
+    # def in_order(self):
+    #     return self._recursive_in_order(self.node)
+
     def in_order(self, root):
         if root:
             return (
@@ -86,18 +89,18 @@ class Tree:
             )
         return 0
 
-    def lessest(self, root):
+    def min(self, root):
         if root:
             if not root.get_left():
                 return root.get_node()
-            return self.lessest(root.get_left())
+            return self.min(root.get_left())
         return None
 
-    def greatest(self, root):
+    def max(self, root):
         if root:
             if not root.get_right():
                 return root.get_node()
-            return self.greatest(root.get_right())
+            return self.max(root.get_right())
         return None
 
     def exists(self, root, node):
@@ -111,3 +114,54 @@ class Tree:
                 return self.exists(root.get_right(), node)
 
         return False
+
+    def balance(self, root):
+        if root:
+            if -1 <= self.balance(root.get_left) - self.balance(root.get_right()) <= 1:
+                pass
+        else:
+            return 0
+
+    def levels(self, root):
+        queue = [root]
+        while queue:
+            first = queue.pop(0)
+            print(first.get_node())
+            if first.get_left():
+                queue.append(first.get_left())
+            if first.get_right():
+                queue.append(first.get_left())
+
+    def branch(self, root):
+        # This is private!!! Encapsulation!!!
+        # Cierra el goteo (?)
+        def visit_branch(root, branch, branches):
+            if not root:
+                return
+            branch.append(root.get_node())
+            if not root.get_left() and not root.get_right():
+                branches.append(branch.copy())
+            else:
+                visit_branch(root.get_left(), branch, branches)
+                visit_branch(root.get_right(), branch, branches)
+            branch.pop()
+        return visit_branch(root, [], [])
+
+    # Habitual - Por la derecha
+    def remove_node(self, root, node):
+        if root:
+            if node < root.get_node():
+                root.set_left(self.remove_node(root.get_left(), node))
+            elif node > root.get_node():
+                root.set_right(self.remove_node(root.get_right(), node))
+            else:
+                if not root.get_left():
+                    return root.get_right()
+                elif not root.get_left():
+                    return root.get_right()
+                else:
+                    root.set_node(self.min(root.get_right()))
+                    root.set_right(self.remove_node(root.get_right(), root.get_node()))
+        else:
+            return None
+
