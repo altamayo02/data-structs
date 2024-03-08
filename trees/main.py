@@ -1,4 +1,4 @@
-from model.Tree import Tree
+from trees.model.BST import Tree
 
 def is_bst(tree):
     inorder = tree.in_order(tree)

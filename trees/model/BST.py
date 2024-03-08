@@ -117,8 +117,7 @@ class Tree:
 
     def balance(self, root):
         if root:
-            if -1 <= self.balance(root.get_left) - self.balance(root.get_right()) <= 1:
-                pass
+            return 
         else:
             return 0
 
