@@ -50,7 +50,7 @@ def exec():
         for col in range(len(mat[0])):
             if mat[row][col]:
                 img.putpixel((row, col), (255, 255, 255))
-    img.save(f"./{date}.png")
+    img.save(f"./data/img/{date}.png")
     print("Image saved.")
     
 
