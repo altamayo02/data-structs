@@ -20,17 +20,19 @@ class MazeSolver:
 		return maze[row][col] == 0
 
 	def backtrack(self, maze: list, row: int = 0, col: int = 0, sln: list = []):
-		if self.is_valid(maze, row, col):
-			if self.is_viable(maze, row, col):
-				maze[row][col] = 2
-				sln.append(copy.deepcopy(maze))
-				if row != self.end[0] or col != self.end[1]:
-					for move in self.moves:
-						self.backtrack(maze, row + move[0], col + move[1])
-				else:
-					self.sln = copy.deepcopy(sln)
-				maze[row][col] = 0
-				sln.pop()
+		if (row, col) == self.end:
+			maze[row][col] = 2
+			sln.append(copy.deepcopy(maze))
+			self.sln = copy.deepcopy(sln)
+			return
+		for move in self.moves:
+			if self.is_valid(maze, row, col):
+				if self.is_viable(maze, row, col):
+					maze[row][col] = 2
+					sln.append(copy.deepcopy(maze))
+					self.backtrack(maze, row + move[0], col + move[1])
+					maze[row][col] = 0
+					sln.pop()
 
 	def __str__(self):
 		s = ""

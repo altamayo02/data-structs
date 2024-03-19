@@ -48,10 +48,7 @@ def cant_pares(n: int) -> int:
 		else:
 			return cant_pares(n // 10)
 
-def menor(lista: list) -> int:
-	'''
-	Encuentra el elemento menor dentro de una lista
-	'''
+def _menor(lista: list) -> int:
 	if len(lista) == 1:
 		return lista[0]
 	else:
@@ -59,7 +56,13 @@ def menor(lista: list) -> int:
 			del lista[0]
 		else:
 			del lista[1]
-		return menor(lista)
+		return _menor(lista)
+
+def menor(lista: list) -> int:
+	'''
+	Encuentra el elemento menor dentro de una lista
+	'''
+	_menor(copy.deepcopy(lista))
 	
 def mcd(a: int, b: int) -> int:
 	'''
@@ -154,10 +157,8 @@ def mas_frecuente_letra(letras: list[str], s: str):
 	'''
 	return _mas_frecuente_letra(letras, s, len(letras) * [0])
 
-def mayor(lista: list) -> int:
-	'''
-	Encuentra el elemento mayor dentro de una lista
-	'''
+# Is it better to just sort?
+def _mayor(lista: list) -> int:
 	if len(lista) == 1:
 		return lista[0]
 	else:
@@ -165,4 +166,10 @@ def mayor(lista: list) -> int:
 			del lista[0]
 		else:
 			del lista[1]
-		return mayor(lista)
+		return _mayor(lista)
+
+def mayor(lista: list) -> int:
+	'''
+	Encuentra el elemento mayor dentro de una lista
+	'''
+	_mayor(copy.deepcopy(lista))
