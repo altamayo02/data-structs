@@ -1,4 +1,4 @@
-class Tree:
+class BST:
     def __init__(self, node):
         self.node = node
         self.left = None
@@ -33,12 +33,12 @@ class Tree:
                 if root.get_left():
                     self.add(root.get_left(), node)
                 else:
-                    root.set_left(Tree(node))
+                    root.set_left(BST(node))
             else:
                 if root.get_right():
                     self.add(root.get_right(), node)
                 else:
-                    root.set_right(Tree(node))
+                    root.set_right(BST(node))
 
             return root
         return None

@@ -1,0 +1,1 @@
+print(int(None) - 2)

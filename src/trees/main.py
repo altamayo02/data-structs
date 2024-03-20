@@ -1,4 +1,4 @@
-from trees.model.BST import Tree
+from trees.model.BST import BST
 
 def is_bst(tree):
     inorder = tree.in_order(tree)
@@ -8,7 +8,7 @@ def is_bst(tree):
     return True
 
 def main():
-    tree = Tree(10)
+    tree = BST(10)
     tree = tree.add(tree, 15)
     tree = tree.add(tree, 2)
     tree = tree.add(tree, 7)
