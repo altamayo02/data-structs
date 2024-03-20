@@ -69,5 +69,3 @@ def print_sol(sol):
 		print("---------------")
 	print("---------------")
 	print("---------------")
-
-backtrack2(table, 0, 0)

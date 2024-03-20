@@ -3,6 +3,7 @@ import copy
 from diagnostic import *
 from recursion.recursion.recursion import *
 from recursion.backtracking.maze import MazeSolver
+from trees.model.AVL import AVL
 import recursion.backtracking.chess_horse as chess_horse
 
 def diagnostico():
@@ -73,8 +74,19 @@ def backtracking():
 	chess_horse.backtrack(chess_horse.table)
 	print()
 
+def arboles():
+	# Ejemplo de uso
+	avl = AVL()
+	avl.add(10)
+	avl.add(20)
+	avl.add(5)
+	avl.add(15)
+	avl.add(18)
+	avl.add(25)
+	avl.traverse()
+
 def main():
-	backtracking()
+	arboles()
 
 if __name__ == "__main__":
 	main()
