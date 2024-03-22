@@ -1,3 +1,4 @@
+import copy
 from types import NoneType
 from typing import Self
 
@@ -9,11 +10,13 @@ class AVL:
 			self.right = None
 			self.height = 1 if param else 0
 		elif type(param) == AVL:
+			# FIXME - PROBLEM IS HERE! Not truly passing by reference
 			self.node = param.get_node()
 			self.left = param.get_left()
 			self.right = param.get_right()
 			self.height = param.get_height()
 		else: raise Exception("AVL must be initialized with either another AVL or an integer.")
+		pass
 	
 	def get_node(self) -> int:
 		return self.node
@@ -46,25 +49,25 @@ class AVL:
 			return 0
 		return root.get_left() - root.get_right()
 
-	def rotate_right(self, root: Self):
+	def rotate_right(self, old_root: Self):
 		# Rotation right
-		new_root = root.get_left()
-		root.set_left(new_root.get_right())
-		new_root.set_right(root)
+		new_root = old_root.get_left()
+		old_root.set_left(new_root.get_right())
+		new_root.set_right(old_root)
 
 		# Update heights of involved nodes
-		root.set_height(max(AVL(root.get_left()), AVL(root.get_right())) + 1)
+		old_root.set_height(max(AVL(old_root.get_left()), AVL(old_root.get_right())) + 1)
 		new_root.set_height(max(AVL(new_root.get_left()), AVL(new_root.get_right())) + 1)
 		return new_root
 
-	def rotate_left(self, root: Self):
+	def rotate_left(self, old_root: Self):
 		# Rotate left
-		new_root = root.get_right()
-		root.set_right(new_root.get_left())
-		new_root.set_left(root)
+		new_root = old_root.get_right()
+		old_root.set_right(new_root.get_left())
+		new_root.set_left(old_root)
 
 		# Update heights of involved nodes
-		root.set_height(max(AVL(root.get_left()), AVL(root.get_right())) + 1)
+		old_root.set_height(max(AVL(old_root.get_left()), AVL(old_root.get_right())) + 1)
 		new_root.set_height(max(AVL(new_root.get_left()), AVL(new_root.get_right())) + 1)
 		return new_root
 
@@ -94,10 +97,15 @@ class AVL:
 		return root
 
 	def add(self, node: int):
-		self.__init__(self._add(self, node))
+		root = self._add(self, node)
+		self.set_node(root.get_node())
+		self.set_left(root.get_left())
+		self.set_right(root.get_right())
+		self.set_height(root.get_height())
+
 	
 	def _pre_order(self, root: Self):
-		if root is not None:
+		if root:
 			print(root.get_node())
 			self._pre_order(root.get_left())
 			self._pre_order(root.get_right())
@@ -108,37 +116,35 @@ class AVL:
 
 
 
-	# TODO - These might only be defined once
-
-	def __gt__(self, other: Self):
-		return (self.get_height() or 0) > (other.get_height() or 0)
-
-	def __gt__(self, number: int):
-		return (self.get_height() or 0) > (number or 0)
+	def __gt__(self, other: any):
+		if type(other) == AVL:
+			return (self.get_height() or 0) > (other.get_height() or 0)
+		elif type(other) in [int, NoneType]:
+			return (self.get_height() or 0) > (other or 0)
 
 	def __lt__(self, other: Self):
-		return (self.get_height() or 0) < (other.get_height() or 0)
-
-	def __lt__(self, number: int):
-		return (self.get_height() or 0) < (number or 0)
+		if type(other) == AVL:
+			return (self.get_height() or 0) < (other.get_height() or 0)
+		elif type(other) in [int, NoneType]:
+			return (self.get_height() or 0) < (other or 0)
 	
 	'''
 	Used in max(a: AVL, b: AVL)
 	'''
 	def __add__(self, other: Self):
-		return (self.get_height() or 0) + (other.get_height() or 0)
-
-	def __add__(self, number: int):
-		return (self.get_height() or 0) + (number or 0)
-	
+		if type(other) == AVL:
+			return (self.get_height() or 0) + (other.get_height() or 0)
+		elif type(other) in [int, NoneType]:
+			return (self.get_height() or 0) + (other or 0)
+		
 	def __sub__(self, other: Self):
-		return (self.get_height() or 0) - (other.get_height() or 0)
+		if type(other) == AVL:
+			return (self.get_height() or 0) - (other.get_height() or 0)
+		elif type(other) in [int, NoneType]:
+			return (self.get_height() or 0) - (other or 0)
 
-	def __sub__(self, number: int):
-		return (self.get_height() or 0) - (number or 0)
-	
 	def __rsub__(self, other: Self):
-		return (other.get_height() or 0) - (self.get_height() or 0)
-
-	def __rsub__(self, number: int):
-		return (number or 0) - (self.get_height() or 0)
+		if type(other) == AVL:
+			return (other.get_height() or 0) - (self.get_height() or 0)
+		elif type(other) in [int, NoneType]:
+			return (other or 0) - (self.get_height() or 0)
