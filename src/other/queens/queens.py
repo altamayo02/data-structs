@@ -1,28 +1,33 @@
 import pygame as pg, math
 from typing import Tuple
-#from pygame._sdl2 import Window
+from pygame._sdl2 import Window
 
+pg.init()
 pg.font.init()
 FONT = pg.font.Font(size=24)
+TABLE_UPDATE = pg.USEREVENT
+CELL_SIZE = 20
 
 class Queens:
 	def __init__(
 		self,
 		screen_size: Tuple[int, int] = (854, 480),
-		caption: str = "pygame-starter",
-		tick_speed: int = 60,
+		caption: str = "pygame-starter"
 	):
-		pg.init()
-		pg.display.set_caption(caption)
-		pg.time.set_timer(pg.USEREVENT, 1000)
-
 		self.screen_size = screen_size
 		self.screen = pg.display.set_mode(self.screen_size, pg.RESIZABLE)
-		#Window.from_display_module().maximize()
+		Window.from_display_module().maximize()
 		self.clock = pg.time.Clock()
-		self.tick_speed = tick_speed
 		self.timer = 0
-		self.queens: list[list] = [[0]]
+		self.queens: list[list] = [(0, 0)]
+		self.moves = [
+			(-1, -1), (-1, 0), (-1, 1),
+			(0, -1), (0, 1),
+			(1, -1), (1, 0), (1, 1)
+		]
+		self.position = 0
+		self.velocity = 0.05
+		self.table: list[list] = []
 
 		self.running = True
 		self.surfaces = {
@@ -38,44 +43,71 @@ class Queens:
 			]
 		}
 
-	def game(self):
-		TABLE_SIZE = self.timer // 1000
+		pg.display.set_caption(caption)
+		self.clock.tick()
+		# FIXME - This is called before table is updated- big trouble
+		pg.time.set_timer(TABLE_UPDATE, int(0 * self.clock.get_time() * self.velocity))
+		print(int(self.clock.get_time() * self.velocity), self.clock.get_time(), self.velocity)
 
+	def game(self):
+		self.position += self.clock.get_time() * self.velocity
+		TABLE_SIZE = int(self.position / CELL_SIZE)
+		
+		# Update table
+		if pg.event.get(TABLE_UPDATE):
+			print("Event: Table update")
+			def mark(i, j):
+				self.table[i][j] = 2
+				for m in self.moves:
+					i1 = m[0]
+					j1 = m[1]
+					while self.is_valid(i + i1, j + j1):
+						if self.table[i + i1][j + j1] == 0:
+							self.table[i + i1][j + j1] = 1
+						i1 += m[0]
+						j1 += m[1]
+			
+			for i in range(TABLE_SIZE):
+				self.table.append([])
+				for j in range(TABLE_SIZE):
+					self.table[i].append(0)
+			
+			for q in self.queens:
+				i, j = q[0], q[1]
+				mark(i, j)
+
+			#self.print_table()
+
+			for i in range(TABLE_SIZE):
+				for j in range(TABLE_SIZE):
+					# Personal preference
+					#if self.table[i][j] == 0:
+					if self.table[j][i] == 0:
+						self.queens.append((j, i))
+						mark(j, i)
+		
 		# Draw grid
-		for i in range(len(self.queens)):
-			for j in range(len(self.queens)):
+		for i in range(TABLE_SIZE + 1):
+			for j in range(TABLE_SIZE + 1):
+				if self.is_valid(i, j):
+					col = {
+						0: "lime",
+						1: "coral",
+						2: "purple"
+					}[self.table[i][j]]
+					pg.draw.rect(self.surfaces["bg"][0], col, pg.rect.Rect(i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE))
 				if i == 0:
 					# Trippy!
-					# pg.draw.line(self.surfaces["bg"][0], "white", (10 * (j - 1), 0), (10 * j, 10 * len(self.queens)))
-					pg.draw.line(self.surfaces["bg"][0], "white", (10 * j, 0), (10 * j, 10 * (len(self.queens) - 1)))
-			pg.draw.line(self.surfaces["bg"][0], "white", (0, 10 * i), (10 * (len(self.queens) - 1), 10 * i))
-		
-		# Update matrix
-		if pg.event.get(pg.USEREVENT):
-			for r in self.queens:
-				print(r)
-			print("---")
+					#pg.draw.line(self.surfaces["bg"][1], "white", (10 * (j - 1), 0), (10 * j, 10 * (TABLE_SIZE - 1)))
+					pg.draw.line(self.surfaces["bg"][1], "white", (j * CELL_SIZE, 0), (j * CELL_SIZE, TABLE_SIZE * CELL_SIZE))
+			pg.draw.line(self.surfaces["bg"][1], "white", (0, i * CELL_SIZE), (TABLE_SIZE * CELL_SIZE, i * CELL_SIZE))
 
-			def mark(i, j):
-				for i1 in range(len(self.queens)):
-					if i1 != i: self.queens[i1][j] = 1
-				for j1 in range(len(self.queens)):
-					if j1 != j: self.queens[i][j1] = 1
-
-			for i in range(len(self.queens)):
-				for j in range(len(self.queens)):
-					if self.queens[i][j] == 0:
-						self.queens[i][j] = 2
-						mark(i, j)
-				self.queens[i].append(0)
-			self.queens.append(len(self.queens[0]) * [0])
-		
 		# Draw scope
 		pg.draw.rect(
 			self.surfaces["fg"][-1],
-			["teal", "purple", "coral", "deeppink"][self.timer // 1000 % 4],
-			pg.Rect(0, 0, self.timer // 100, self.timer // 100),
-			2
+			["teal", "purple", "coral", "deeppink"][TABLE_SIZE % 4],
+			pg.Rect(-1, -1, self.position + 1, self.position + 1),
+			3
 		)
 
 
@@ -101,18 +133,31 @@ class Queens:
 			for n in self.surfaces[layer]:
 				self.screen.blit(n, (0, 0))
 		pg.display.update()
-		self.clock.tick(self.tick_speed)
+		self.clock.tick()
 		self.timer += self.clock.get_time()
 
 	def run(self):
-		"""
-		run update at the specified tick_speed, until exit.
-		"""
 		while self.running:
 			self.update()
 		pg.quit()
 
+	def is_valid(self, i, j):
+		return 0 <= i < len(self.table) and 0 <= j < len(self.table[0])
+	
+	def print_table(self):
+		for r in self.table:
+			for c in r:
+				col = {
+					0: 32,
+					1: 31,
+					2: 35
+				}[c]
+
+				print(f"\u001B[{col}m{c}", end=" ")
+			print()
+		print("\u001B[0m---------------")
+
 
 if __name__ == "__main__":
-	game = Queens((900, 900), "Queens", math.inf)
+	game = Queens((900, 900), "Queens")
 	game.run()
