@@ -2,10 +2,20 @@ import copy
 from types import NoneType
 from typing import Self
 
+class AVLNode:
+	def __init__(self, value):
+		self.value = value
+	
+	def get_value(self) -> int:
+		return self.value
+
+	def __str__(self):
+		return str(self.value)
+
 class AVL:
 	def __init__(self, param: any = None):
 		if type(param) in [int, NoneType]:
-			self.node = param
+			self.node = AVLNode(param)
 			self.left = None
 			self.right = None
 			self.height = 1 if param else 0
@@ -18,7 +28,7 @@ class AVL:
 		else: raise Exception("AVL must be initialized with either another AVL or an integer.")
 		pass
 	
-	def get_node(self) -> int:
+	def get_node(self) -> AVLNode:
 		return self.node
 	
 	def set_node(self, node):
@@ -72,9 +82,9 @@ class AVL:
 		return new_root
 
 	def _add(self, root: Self, node: int):
-		if not root or not root.get_node():
+		if not root or not root.get_node().get_value():
 			return AVL(node)
-		if node < root.get_node():
+		if node < root.get_node().get_value():
 			root.set_left(self._add(root.get_left(), node))
 		else:
 			root.set_right(self._add(root.get_right(), node))
@@ -83,13 +93,13 @@ class AVL:
 		balance = self.balance(root)
 
 		if balance > 1:
-			if node < root.get_left().get_node():
+			if node < root.get_left().get_node().get_value():
 				return self.rotate_right(root)
 			else:
 				root.set_left(self.rotate_left(root.get_left()))
 				return self.rotate_right(root)
 		if balance < -1:
-			if node > root.get_right().get_node():
+			if node > root.get_right().get_node().get_value():
 				return self.rotate_left(root)
 			else:
 				root.set_right(self.rotate_right(root.get_right()))
@@ -98,11 +108,7 @@ class AVL:
 
 	def add(self, node: int):
 		root = self._add(self, node)
-		self.set_node(root.get_node())
-		self.set_left(root.get_left())
-		self.set_right(root.get_right())
-		self.set_height(root.get_height())
-
+		self.__init__(root)
 	
 	def _pre_order(self, root: Self):
 		if root:
