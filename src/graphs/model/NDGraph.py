@@ -44,18 +44,3 @@ class NDGraph:
                 if adj not in stack and adj not in traversed:
                     # Apilar
                     stack.append(adj)
-
-g = NDGraph()
-g.add('a')
-g.add('b')
-g.add('c')
-g.add('d')
-g.add('e')
-g.connect('a', 'b', 10)
-g.connect('a', 'c', 8)
-g.connect('b', 'd', 11)
-g.connect('b', 'e', 5)
-g.connect('c', 'e', 3)
-g.traverse_girth('a')
-print()
-g.traverse_depth('a')
