@@ -336,83 +336,96 @@
      </item>
     </item>
    </widget>
-   <widget class="QTreeWidget" name="treeWidgetGrupos">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>20</y>
-      <width>251</width>
-      <height>411</height>
+      <x>370</x>
+      <y>10</y>
+      <width>351</width>
+      <height>421</height>
      </rect>
     </property>
-    <property name="autoScroll">
-     <bool>false</bool>
+    <property name="title">
+     <string>Visualización de grupos</string>
     </property>
-    <property name="autoScrollMargin">
-     <number>1</number>
-    </property>
-    <property name="alternatingRowColors">
-     <bool>true</bool>
-    </property>
-    <property name="verticalScrollMode">
-     <enum>QAbstractItemView::ScrollPerPixel</enum>
-    </property>
-    <property name="animated">
-     <bool>true</bool>
-    </property>
-    <property name="headerHidden">
-     <bool>false</bool>
-    </property>
-    <column>
-     <property name="text">
-      <string>Grupo</string>
+    <widget class="QTreeWidget" name="treeWidgetGrupos">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>311</width>
+       <height>331</height>
+      </rect>
      </property>
-    </column>
-    <item>
-     <property name="text">
-      <string>A</string>
+     <property name="autoScroll">
+      <bool>false</bool>
      </property>
+     <property name="autoScrollMargin">
+      <number>1</number>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="verticalScrollMode">
+      <enum>QAbstractItemView::ScrollPerPixel</enum>
+     </property>
+     <property name="animated">
+      <bool>true</bool>
+     </property>
+     <property name="headerHidden">
+      <bool>false</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>Grupo</string>
+      </property>
+     </column>
      <item>
       <property name="text">
-       <string>Colombia</string>
+       <string>A</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Colombia</string>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>B</string>
       </property>
      </item>
-    </item>
-    <item>
-     <property name="text">
-      <string>B</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>C</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>D</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>E</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>F</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>G</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>H</string>
-     </property>
-    </item>
+     <item>
+      <property name="text">
+       <string>C</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>D</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>F</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>G</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H</string>
+      </property>
+     </item>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
