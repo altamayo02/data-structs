@@ -1,5 +1,8 @@
 from collections import deque
 
+#Dijkstra, Floyd-Warshall, Bellman-Ford
+#Prim, Kruskal, Vorubka
+
 class NDGraph:
     def __init__(self):
         self.vertices: dict[any, dict[any, any]] = {}
