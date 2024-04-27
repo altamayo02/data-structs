@@ -163,4 +163,3 @@ class BST:
                     root.set_right(self.remove_node(root.get_right(), root.get_node()))
         else:
             return None
-

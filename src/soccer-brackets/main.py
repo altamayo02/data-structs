@@ -1,5 +1,6 @@
 from model.Soccer import Criterias, SoccerCup, SoccerTeam
 
+
 class Main:
 	def __init__(self) -> None:
 		pass
