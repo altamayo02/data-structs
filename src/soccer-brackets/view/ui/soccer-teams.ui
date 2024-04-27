@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -33,9 +30,6 @@
   </property>
   <property name="windowTitle">
    <string>ＥＮＦＥＲＭＯＳ　ＰＯＲ　ＥＬ　ＦＵＴＢＯＬ</string>
-  </property>
-  <property name="autoFillBackground">
-   <bool>false</bool>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonIconOnly</enum>
@@ -120,6 +114,9 @@
      <property name="singleStep">
       <double>0.200000000000000</double>
      </property>
+     <property name="value">
+      <double>40.000000000000000</double>
+     </property>
     </widget>
     <widget class="QDoubleSpinBox" name="doubleSpinBoxFuerza">
      <property name="geometry">
@@ -147,6 +144,9 @@
      </property>
      <property name="singleStep">
       <double>5.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>600.000000000000000</double>
      </property>
     </widget>
     <widget class="QLabel" name="labelNombre">
@@ -189,6 +189,9 @@
      <property name="singleStep">
       <double>0.100000000000000</double>
      </property>
+     <property name="value">
+      <double>13.000000000000000</double>
+     </property>
     </widget>
     <widget class="QLineEdit" name="lineEditNombre">
      <property name="geometry">
@@ -200,9 +203,6 @@
       </rect>
      </property>
      <property name="text">
-      <string/>
-     </property>
-     <property name="placeholderText">
       <string>Once Bellacos</string>
      </property>
     </widget>
@@ -380,50 +380,54 @@
      <property name="verticalScrollMode">
       <enum>QAbstractItemView::ScrollPerPixel</enum>
      </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
      <property name="animated">
       <bool>true</bool>
      </property>
-     <property name="headerHidden">
-      <bool>false</bool>
+     <property name="allColumnsShowFocus">
+      <bool>true</bool>
      </property>
+     <attribute name="headerDefaultSectionSize">
+      <number>70</number>
+     </attribute>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>Grupo</string>
       </property>
      </column>
-     <item>
+     <column>
       <property name="text">
-       <string>A</string>
+       <string>Equipo</string>
       </property>
-      <item>
-       <property name="text">
-        <string>Colombia</string>
-       </property>
-      </item>
-     </item>
-     <item>
+     </column>
+     <column>
       <property name="text">
-       <string>B</string>
+       <string>Resistencia</string>
       </property>
-     </item>
-     <item>
+     </column>
+     <column>
       <property name="text">
-       <string>C</string>
+       <string>Fuerza</string>
       </property>
-     </item>
-     <item>
+     </column>
+     <column>
       <property name="text">
-       <string>D</string>
+       <string>Velocidad</string>
       </property>
-     </item>
-     <item>
+     </column>
+     <column>
       <property name="text">
-       <string>E</string>
+       <string>Precisión</string>
       </property>
-     </item>
+     </column>
      <item>
       <property name="text">
-       <string>F</string>
+       <string>H</string>
       </property>
      </item>
      <item>
@@ -433,7 +437,32 @@
      </item>
      <item>
       <property name="text">
-       <string>H</string>
+       <string>F</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>D</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>B</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>A</string>
       </property>
      </item>
     </widget>
