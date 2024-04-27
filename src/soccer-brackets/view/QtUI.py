@@ -84,8 +84,9 @@ class QtUI:
 		while tree_groups.topLevelItemCount() > 0:
 			tree_groups.takeTopLevelItem(0)
 
-		# Only for the static analyzer
-		from model.Soccer import SoccerTeam
+		# For the static analyzer
+		# and Criterias
+		from model.Soccer import SoccerTeam, Criterias
 		groups: dict[str, list[SoccerTeam]] = groups
 		for g in groups:
 			tree_group = QTreeWidgetItem()
@@ -93,6 +94,12 @@ class QtUI:
 			for team in groups[g]:
 				tree_team = QTreeWidgetItem()
 				tree_team.setText(1, team.name)
+				for i in range(len(Criterias)):
+					stat = team.stats[Criterias(1 + i).name]
+					tree_team.setText(
+						2 + i,
+						f"{stat:.2f}" if type(stat) is float else stat
+					)
 				tree_group.addChild(tree_team)
 			tree_groups.addTopLevelItem(tree_group)
 		tree_groups.expandAll()

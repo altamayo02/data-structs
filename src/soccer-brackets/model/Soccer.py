@@ -1,9 +1,10 @@
 from enum import Enum, auto
 import random
 
-from .BinaryTree import BinaryTree
 from view.QtUI import QtUI
 from services import Random
+from .BinaryTree import BinaryTree
+from .ISerializable import ISerializable
 
 
 class Criterias(Enum):
@@ -13,14 +14,17 @@ class Criterias(Enum):
 	ACCURACY = auto()
 
 
-class SoccerTeam:
+class SoccerTeam(ISerializable):
 	def __init__(
 		self,
+		id: str = None,
 		group: str = "Z",
 		name: str = "Los innombrables",
 		stats: dict[Criterias, float] = {},
 	) -> None:
-		self.id = f"ST-{Random.random_alphanumerical(6)}"
+		self.id = id
+		if not id:
+			self.id = f"ST-{Random.random_alphanumerical(6)}"
 		self.name = name
 		self.group = group
 		self.stats = {}
@@ -66,7 +70,7 @@ class SoccerTeam:
 		}
 
 
-class SoccerCup:
+class SoccerCup(ISerializable):
 	def __init__(
 		self,
 		path_to_initial_dialog: str,
@@ -86,7 +90,10 @@ class SoccerCup:
 				"load": self.load_data
 			}
 		)
-		self.brackets = BinaryTree()
+		self.brackets = BinaryTree(1)
+		self.brackets.set_left(BinaryTree(-2))
+		self.brackets.set_right(BinaryTree(3))
+		self.brackets.set_left(BinaryTree(-1))
 
 	def get_ui(self) -> QtUI:
 		return self.ui
@@ -106,9 +113,9 @@ class SoccerCup:
 
 		if len(self.groups[group]) < 4:
 			team = SoccerTeam(
-				group,
-				name,
-				data
+				group=group,
+				name=name,
+				stats=data
 			)
 			self.groups[group].append(team)
 			self.ui.update_groups(self.groups)
@@ -118,6 +125,10 @@ class SoccerCup:
 			)
 
 	def simulate_jornada(self):
+		num_teams = self.count_teams()
+		if num_teams != 32:
+			self.ui.warn(f"Se requieren 32 equipos para simular la copa. Se han recibido: {num_teams}")
+			return
 		print("Pendiente: Simular jornada")
 
 	def show_brackets(self):
@@ -128,7 +139,7 @@ class SoccerCup:
 		for group_id in data["groups"]:
 			group: list[dict] = data["groups"][group_id]
 			self.groups[group_id] = [SoccerTeam(
-				group_id, team["name"], team["stats"]
+				team["id"], group_id, team["name"], team["stats"]
 			) for team in group]
 		self.ui.update_groups(self.groups)
 
@@ -151,3 +162,9 @@ class SoccerCup:
 			return self.faceoff(t1, t2, Criterias((criteria.value + 1) % 4), True)
 		else:
 			return t1, t2
+	
+	def count_teams(self) -> int:
+		num_teams = 0
+		for group in self.groups:
+			num_teams += len(self.groups[group])
+		return num_teams

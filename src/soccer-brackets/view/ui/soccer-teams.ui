@@ -590,7 +590,7 @@
   </widget>
   <action name="actionNuevaCopa">
    <property name="text">
-    <string>Nueva copa...</string>
+    <string>Nueva copa</string>
    </property>
   </action>
   <action name="actionCargarCopa">
@@ -600,7 +600,7 @@
   </action>
   <action name="actionGuardarCopa">
    <property name="text">
-    <string>Guardar</string>
+    <string>Guardar copa</string>
    </property>
   </action>
   <action name="actionGuardarCopaComo">

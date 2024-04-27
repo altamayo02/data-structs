@@ -8,4 +8,4 @@ class Main:
 if __name__ == "__main__":
 	sc = SoccerCup("./src/soccer-brackets/view/ui/soccer-teams.ui")
 	sc.get_ui().show()
-	print(sc.faceoff(SoccerTeam("A"), SoccerTeam("A"), Criterias.ACCURACY))
+	print(sc.faceoff(SoccerTeam(group="A"), SoccerTeam(group="A"), Criterias.ACCURACY))
