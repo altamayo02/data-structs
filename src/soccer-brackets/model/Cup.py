@@ -73,25 +73,26 @@ class Cup(ISerializable):
 			self.jornadas.append([])
 			jornada = self.jornadas[-2]
 			for t in range(0, len(jornada), 2):
-				match = Match(jornada[t].get_node(), jornada[t + 1].get_node(), Criterias(id_criteria))
-
+				standing1: Standing = jornada[t].get_node()
+				standing2: Standing = jornada[t + 1].get_node()
+				match = Match(standing1, standing2, Criterias(id_criteria))
 				if match.is_tied():
 					goals = random.randint(0, 3)
-					jornada[t].get_node().set_goals(goals)
-					jornada[t + 1].get_node().set_goals(goals)
+					standing1.set_goals(goals)
+					standing2.set_goals(goals)
 				else:
 					goals = [0, 0]
-					while goals[0] != goals[1]:
+					while goals[0] == goals[1]:
 						goals = sorted([random.randint(1, 5) for _ in range(2)])
-					jornada[t].get_node().set_goals(goals[0])
-					jornada[t + 1].get_node().set_goals(goals[0])
+					standing1.set_goals(goals[0])
+					standing2.set_goals(goals[0])
 					# Winner before upstreaming it in the tree
 					lower_winner: Standing = [
-						jornada[t].get_node(), jornada[t + 1].get_node()
+						standing1, standing2
 					][match.get_winner_index()]
 					lower_winner.set_goals(goals[1])
-				bintree = BinaryTree(match.get_winner(), jornada[t], jornada[t + 1])
-				print(bintree)
+					print(standing1, standing2, goals)
+				bintree = BinaryTree(match.get_winner().deep_copy(), jornada[t], jornada[t + 1])
 				self.jornadas[-1].append(bintree)
 		else:
 			self.jornadas.append([])
@@ -111,7 +112,6 @@ class Cup(ISerializable):
 					self.jornadas[0].append(BinaryTree(winner))
 			print(len(self.jornadas))
 		self.ui.update_jornadas(self.jornadas)
-		print("Pendiente: Simular jornada")
 
 	def show_brackets(self):
 		print("Pendiente: Dibujar llaves")

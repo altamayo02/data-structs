@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtCore import QFile, QIODevice, Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import (
@@ -50,7 +49,7 @@ class QtUI:
 		return self.main_window
 
 	def get_team_form_data(self):
-		from model.Soccer import Criterias
+		from model.Criterias import Criterias
 		return {
 			"group": self.get_main_widget().findChild(QComboBox, "comboBoxGrupo").currentText(),
 			"name": self.get_main_widget().findChild(QLineEdit, "lineEditNombre").text(),
@@ -90,9 +89,9 @@ class QtUI:
 		while tree_groups.topLevelItemCount() > 0:
 			tree_groups.takeTopLevelItem(0)
 
-		# For the static analyzer
-		# and Criterias
-		from model.Soccer import Team, Criterias
+		# Only for the static analyzer
+		from model.Team import Team
+		from model.Criterias import Criterias
 		groups: dict[str, list[Team]] = groups
 		for g in groups:
 			tree_group = QTreeWidgetItem()
@@ -117,7 +116,7 @@ class QtUI:
 			tree_jornadas.takeTopLevelItem(0)
 
 		from model.BinaryTree import BinaryTree
-		from model.Soccer import Standing
+		from model.Standing import Standing
 		jornadas: list[list[BinaryTree]] = jornadas
 		for j in range(len(jornadas)):
 			tree_jornada = QTreeWidgetItem()
