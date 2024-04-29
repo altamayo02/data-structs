@@ -528,16 +528,6 @@
       <string>Simular por criterio:</string>
      </property>
     </widget>
-    <widget class="QTableView" name="tableViewJornadas">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>60</y>
-       <width>301</width>
-       <height>111</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButtonSimular">
      <property name="geometry">
       <rect>
@@ -563,6 +553,24 @@
      <property name="text">
       <string>Visualizar llaves...</string>
      </property>
+    </widget>
+    <widget class="QTreeWidget" name="treeWidgetJornadas">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>301</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Jornada</string>
+      </property>
+     </column>
     </widget>
    </widget>
   </widget>

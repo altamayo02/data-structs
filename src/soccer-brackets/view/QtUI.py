@@ -62,12 +62,18 @@ class QtUI:
 			Criterias.STRENGTH.name: self.get_main_widget().findChild(QDoubleSpinBox, "doubleSpinBoxFuerza").value()
 		}
 
+	def get_sim_form_data(self):
+		test = QComboBox()
+		return {
+			"criteria": self.get_main_widget().findChild(QComboBox, "comboBoxCriterio").currentIndex()
+		}
+
 	def _bind_slots(self, slots: dict[str, any]) -> QWidget:
 		btn_add: QPushButton = self.main_window.findChild(QPushButton, "pushButtonAgregar")
 		btn_add.clicked.connect(slots["add"])
 
 		btn_simulate: QPushButton = self.main_window.findChild(QPushButton, "pushButtonSimular")
-		btn_simulate.clicked.connect(slots["sim"])
+		btn_simulate.clicked.connect(lambda: slots["sim"](1 + self.get_sim_form_data()["criteria"]))
 
 		btn_draw: QPushButton = self.main_window.findChild(QPushButton, "pushButtonVisualizar")
 		btn_draw.clicked.connect(slots["draw"])
@@ -78,7 +84,7 @@ class QtUI:
 		actn_load: QAction = self.main_window.findChild(QAction, "actionCargarCopa")
 		actn_load.triggered.connect(slots["load"])
 
-	def update_groups(self, groups: list):
+	def update_groups(self, groups: dict):
 		tree_groups: QTreeWidget = self.main_window.findChild(QTreeWidget, "treeWidgetGrupos")
 		tree_groups.sortByColumn(0, Qt.SortOrder.AscendingOrder)
 		while tree_groups.topLevelItemCount() > 0:
@@ -86,8 +92,8 @@ class QtUI:
 
 		# For the static analyzer
 		# and Criterias
-		from model.Soccer import SoccerTeam, Criterias
-		groups: dict[str, list[SoccerTeam]] = groups
+		from model.Soccer import Team, Criterias
+		groups: dict[str, list[Team]] = groups
 		for g in groups:
 			tree_group = QTreeWidgetItem()
 			tree_group.setText(0, g)
@@ -103,6 +109,41 @@ class QtUI:
 				tree_group.addChild(tree_team)
 			tree_groups.addTopLevelItem(tree_group)
 		tree_groups.expandAll()
+	
+	def update_jornadas(self, jornadas: list[dict]):
+		tree_jornadas: QTreeWidget = self.main_window.findChild(QTreeWidget, "treeWidgetJornadas")
+		tree_jornadas.sortByColumn(0, Qt.SortOrder.AscendingOrder)
+		while tree_jornadas.topLevelItemCount() > 0:
+			tree_jornadas.takeTopLevelItem(0)
+
+		from model.BinaryTree import BinaryTree
+		from model.Soccer import Standing
+		jornadas: list[list[BinaryTree]] = jornadas
+		for j in range(len(jornadas)):
+			tree_jornada = QTreeWidgetItem()
+			tree_jornada.setText(0, f"Jornada {j}")
+			if j > 0:
+				for bintree in jornadas[j]:
+					tree_team = QTreeWidgetItem()
+					standing1: Standing = bintree.get_left().get_node()
+					standing2: Standing = bintree.get_right().get_node()
+					tree_team.setText(
+						0,
+						f"({standing1.get_goals()}) {standing1.get_team().get_name()} - " +
+						f"({standing2.get_goals()}) {standing2.get_team().get_name()}"
+					)
+					tree_jornada.addChild(tree_team)
+			else:
+				for bintree in jornadas[j]:
+					tree_team = QTreeWidgetItem()
+					standing: Standing = bintree.get_node()
+					tree_team.setText(0, f"(N/A) {standing.get_team().get_name()}")
+					tree_jornada.addChild(tree_team)
+			if len(jornadas[j]) < 2:
+				btn_simulate: QPushButton = self.main_window.findChild(QPushButton, "pushButtonSimular")
+				btn_simulate.setDisabled(True)
+			tree_jornadas.addTopLevelItem(tree_jornada)
+		tree_jornadas.expandAll()
 
 	def show(self):
 		self.main_window.show()

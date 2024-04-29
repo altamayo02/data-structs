@@ -2,7 +2,7 @@
     "groups": {
         "A": [
             {
-                "id": "ST-sVDerQ",
+                "id": "T-sVDerQ",
                 "name": "Cabras Insanas",
                 "stats": {
                     "ACCURACY": "Media",
@@ -12,7 +12,7 @@
                 }
             },
             {
-                "id": "ST-IbsUELv",
+                "id": "T-IbsUELv",
                 "name": "Gran Colombo",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -22,7 +22,7 @@
                 }
             },
             {
-                "id": "ST-YFPNIt",
+                "id": "T-YFPNIt",
                 "name": "Pasto Sombrío",
                 "stats": {
                     "ACCURACY": "Media",
@@ -32,7 +32,7 @@
                 }
             },
             {
-                "id": "ST-OqZcS`",
+                "id": "T-OqZcS`",
                 "name": "Troilo Play",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -44,7 +44,7 @@
         ],
         "B": [
             {
-                "id": "ST-UtSiKJ",
+                "id": "T-UtSiKJ",
                 "name": "Relicarios Dos",
                 "stats": {
                     "ACCURACY": "Media",
@@ -54,7 +54,7 @@
                 }
             },
             {
-                "id": "ST-nWVgPb",
+                "id": "T-nWVgPb",
                 "name": "Once Bellacos",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -64,7 +64,7 @@
                 }
             },
             {
-                "id": "ST-WWLLDL",
+                "id": "T-WWLLDL",
                 "name": "Mundo Rosa",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -74,7 +74,7 @@
                 }
             },
             {
-                "id": "ST-wgXGJM",
+                "id": "T-wgXGJM",
                 "name": "Atlético Libre",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -86,7 +86,7 @@
         ],
         "C": [
             {
-                "id": "ST-AZPUAr",
+                "id": "T-AZPUAr",
                 "name": "Endeudarios",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -96,7 +96,7 @@
                 }
             },
             {
-                "id": "ST-GksuCi",
+                "id": "T-GksuCi",
                 "name": "Reyes Magos",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -106,7 +106,7 @@
                 }
             },
             {
-                "id": "ST-uoWEPo",
+                "id": "T-uoWEPo",
                 "name": "Ley Callejera",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -116,7 +116,7 @@
                 }
             },
             {
-                "id": "ST-ncimhe",
+                "id": "T-ncimhe",
                 "name": "Los Chamos",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -128,7 +128,7 @@
         ],
         "D": [
             {
-                "id": "ST-ejYnAG",
+                "id": "T-ejYnAG",
                 "name": "Tiempo Apurado",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -138,7 +138,7 @@
                 }
             },
             {
-                "id": "ST-mIcjGU",
+                "id": "T-mIcjGU",
                 "name": "Los Mimados",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -148,7 +148,7 @@
                 }
             },
             {
-                "id": "ST-MBiLEa",
+                "id": "T-MBiLEa",
                 "name": "Tele y Trabajo",
                 "stats": {
                     "ACCURACY": "Media",
@@ -158,7 +158,7 @@
                 }
             },
             {
-                "id": "ST-RzcLDZ",
+                "id": "T-RzcLDZ",
                 "name": "Compis Molonguis",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -170,7 +170,7 @@
         ],
         "E": [
             {
-                "id": "ST-hykMwK",
+                "id": "T-hykMwK",
                 "name": "Capas de Héroe",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -180,7 +180,7 @@
                 }
             },
             {
-                "id": "ST-bADlwn",
+                "id": "T-bADlwn",
                 "name": "Escuadrón Lobos",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -190,7 +190,7 @@
                 }
             },
             {
-                "id": "ST-bRPaxn",
+                "id": "T-bRPaxn",
                 "name": "Grupo Dinámico",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -200,7 +200,7 @@
                 }
             },
             {
-                "id": "ST-aEYMiM",
+                "id": "T-aEYMiM",
                 "name": "Estrellas Brillantes",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -212,7 +212,7 @@
         ],
         "F": [
             {
-                "id": "ST-UPaBvy",
+                "id": "T-UPaBvy",
                 "name": "Los Campeones",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -222,7 +222,7 @@
                 }
             },
             {
-                "id": "ST-aFEpKb",
+                "id": "T-aFEpKb",
                 "name": "Equipo Poderoso",
                 "stats": {
                     "ACCURACY": "Media",
@@ -232,7 +232,7 @@
                 }
             },
             {
-                "id": "ST-FSrXfX",
+                "id": "T-FSrXfX",
                 "name": "Rayo de Esperanza",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -242,7 +242,7 @@
                 }
             },
             {
-                "id": "ST-roVuNr",
+                "id": "T-roVuNr",
                 "name": "Tormenta Creativa",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -254,7 +254,7 @@
         ],
         "G": [
             {
-                "id": "ST-qpPXyW",
+                "id": "T-qpPXyW",
                 "name": "Águilas Voladoras",
                 "stats": {
                     "ACCURACY": "Media",
@@ -264,7 +264,7 @@
                 }
             },
             {
-                "id": "ST-qpjmqD",
+                "id": "T-qpjmqD",
                 "name": "Fuego y Hielo",
                 "stats": {
                     "ACCURACY": "Media",
@@ -274,7 +274,7 @@
                 }
             },
             {
-                "id": "ST-RUQZdf",
+                "id": "T-RUQZdf",
                 "name": "Espíritu Ganador",
                 "stats": {
                     "ACCURACY": "Media",
@@ -284,7 +284,7 @@
                 }
             },
             {
-                "id": "ST-kVBZgg",
+                "id": "T-kVBZgg",
                 "name": "Amigos Fieles",
                 "stats": {
                     "ACCURACY": "Alta",
@@ -296,7 +296,7 @@
         ],
         "H": [
             {
-                "id": "ST-vVlrKr",
+                "id": "T-vVlrKr",
                 "name": "Destino Dorado",
                 "stats": {
                     "ACCURACY": "Media",
@@ -306,7 +306,7 @@
                 }
             },
             {
-                "id": "ST-FNXxaN",
+                "id": "T-FNXxaN",
                 "name": "Los Visionarios",
                 "stats": {
                     "ACCURACY": "Media",
@@ -316,7 +316,7 @@
                 }
             },
             {
-                "id": "ST-cdrNum",
+                "id": "T-cdrNum",
                 "name": "Los Soñadores",
                 "stats": {
                     "ACCURACY": "Baja",
@@ -326,7 +326,7 @@
                 }
             },
             {
-                "id": "ST-CEWcJf",
+                "id": "T-CEWcJf",
                 "name": "Toros E",
                 "stats": {
                     "ACCURACY": "Baja",

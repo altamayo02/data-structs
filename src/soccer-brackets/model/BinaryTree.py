@@ -132,3 +132,6 @@ class BinaryTree(ISerializable):
 				"left": self.to_dict(tree.get_left()) if tree.get_left() else None,
 				"right": self.to_dict(tree.get_right()) if tree.get_right() else None
 			}
+	
+	def __str__(self) -> str:
+		return f"[{self.left.get_node()} <- {self.node} -> {self.right.get_node()}]"
