@@ -128,8 +128,8 @@ class QtUI:
 					standing2: Standing = bintree.get_right().get_node()
 					tree_team.setText(
 						0,
-						f"({standing1.get_goals()}) {standing1.get_team().get_name()} - " +
-						f"({standing2.get_goals()}) {standing2.get_team().get_name()}"
+						f"{standing1.get_team().get_name()} ({standing1.get_goals()}) vs. " +
+						f"{standing2.get_team().get_name()} ({standing2.get_goals()})"
 					)
 					tree_jornada.addChild(tree_team)
 			else:

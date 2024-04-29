@@ -87,7 +87,7 @@ class Cup(ISerializable):
 						standing1, standing2
 					][match.get_winner_index()]
 					lower_winner.set_goals(goals[1])
-					print(standing1, standing2, goals)
+					#print(goals, standing1, standing2)
 				bintree = BinaryTree(match.get_winner().deep_copy(), jornada[t], jornada[t + 1])
 				self.jornadas[-1].append(bintree)
 		else:
@@ -106,7 +106,6 @@ class Cup(ISerializable):
 				winners = sorted(standings.values(), key=lambda s: s.get_score())[:2:]
 				for winner in winners:
 					self.jornadas[0].append(BinaryTree(winner))
-			print(len(self.jornadas))
 		self.ui.update_jornadas(self.jornadas)
 
 	def show_brackets(self):

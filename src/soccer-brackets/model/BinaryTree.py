@@ -32,36 +32,36 @@ class BinaryTree(ISerializable):
 	def set_right(self, right):
 		self.right = right
 	
-	def in_order(self, tree: Self, f = None):
+	def in_order(self, tree: Self, f = None, *args):
 		if tree:
 			if not f:
 				f = tree.get_node
 			return (
-				self.in_order(tree.get_left()) +
-				[f()] +
-				self.in_order(tree.get_right())
+				self.in_order(tree.get_left(), f, *args) +
+				[f(tree)] +
+				self.in_order(tree.get_right(), f, *args)
 			)
 		return []
 		
-	def pre_order(self, tree: Self, f = None):
+	def pre_order(self, tree: Self, f = None, *args):
 		if tree:
 			if not f:
 				f = tree.get_node
 			return (
-				[f()] +
-				self.pre_order(tree.get_left()) +
-				self.pre_order(tree.get_right())
+				[f(tree, *args)] +
+				self.pre_order(tree.get_left(), f, *args) +
+				self.pre_order(tree.get_right(), f, *args)
 			)
 		return []
 
-	def post_order(self, tree: Self, f = None):
+	def post_order(self, tree: Self, f = None, *args):
 		if tree:
 			if not f:
 				f = tree.get_node
 			return (
-				self.post_order(tree.get_left()) +
-				self.post_order(tree.get_right()) +
-				[f()]
+				self.post_order(tree.get_left(), f, *args) +
+				self.post_order(tree.get_right(), f, *args) +
+				[f(tree)]
 			)
 		return []
 		
