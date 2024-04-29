@@ -29,10 +29,6 @@ class Cup(ISerializable):
 				"load": self.load_data
 			}
 		)
-		self.brackets = BinaryTree(1)
-		self.brackets.set_left(BinaryTree(-2))
-		self.brackets.set_right(BinaryTree(3))
-		self.brackets.set_left(BinaryTree(-1))
 		self.jornadas: list[list[BinaryTree]] = []
 
 	def get_ui(self) -> QtUI:
@@ -41,8 +37,8 @@ class Cup(ISerializable):
 	def get_groups(self) -> list[str]:
 		return self.groups
 
-	def get_brackets(self) -> BinaryTree:
-		return self.brackets
+	def get_jornadas(self) -> BinaryTree:
+		return self.jornadas
 
 	def add_team(self):
 		data = self.ui.get_team_form_data()
@@ -118,24 +114,21 @@ class Cup(ISerializable):
 
 	def load_data(self):
 		data = self.ui.open_file()
-		for group_id in data["groups"]:
-			group: list[dict] = data["groups"][group_id]
-			self.groups[group_id] = [Team(
-				team["id"], group_id, team["name"], team["stats"]
+		for g in data:
+			group: list[dict] = data[g]
+			self.groups[g] = [Team(
+				team["id"], g, team["name"], team["stats"]
 			) for team in group]
 		self.ui.update_groups(self.groups)
 
 	def save_data(self):
 		groups = {}
-		for group in self.groups:
-			groups[group] = [team.to_dict() for team in self.groups[group]]
-		self.ui.save_file({
-			"groups": groups,
-			"brackets": self.brackets.to_dict()
-		})
+		for g in self.groups:
+			groups[g] = [team.to_dict() for team in self.groups[g]]
+		self.ui.save_file(groups)
 	
 	def count_teams(self) -> int:
 		num_teams = 0
-		for group in self.groups:
-			num_teams += len(self.groups[group])
+		for g in self.groups:
+			num_teams += len(self.groups[g])
 		return num_teams

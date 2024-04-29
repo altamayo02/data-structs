@@ -128,7 +128,7 @@ class BinaryTree(ISerializable):
 			if not tree:
 				tree = self
 			return {
-				"node": tree.get_node() or None,
+				"node": tree.get_node(),
 				"left": self.to_dict(tree.get_left()) if tree.get_left() else None,
 				"right": self.to_dict(tree.get_right()) if tree.get_right() else None
 			}
