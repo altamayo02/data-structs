@@ -1,74 +1,12 @@
-import copy
-from enum import Enum, auto
 import random
 
+from model.BinaryTree import BinaryTree
+from model.Criterias import Criterias
+from model.ISerializable import ISerializable
+from model.Match import Match
+from model.Standing import Standing
+from model.Team import Team
 from view.QtUI import QtUI
-from services import Random
-from .BinaryTree import BinaryTree
-from .ISerializable import ISerializable
-
-
-class Criterias(Enum):
-	RESISTANCE = auto()
-	STRENGTH = auto()
-	SPEED = auto()
-	ACCURACY = auto()
-
-
-class Team(ISerializable):
-	def __init__(
-		self,
-		id: str = None,
-		group: str = "Z",
-		name: str = "Los innombrables",
-		stats: dict[Criterias, float] = {},
-	) -> None:
-		self.id = id
-		if not id:
-			self.id = f"T-{Random.random_alphanumerical(6)}"
-		self.name = name
-		self.group = group
-		self.stats = {}
-		if len(stats) == 0:
-			for i in range(1, len(Criterias) + 1):
-				#self.stats[Criterias(i).name] = 0
-				self.stats[Criterias(i).name] = random.randint(1, 10)
-		else:
-			self.stats = stats
-	
-	def get_id(self):
-		return self.id
-	
-	def get_name(self):
-		return self.name
-	
-	def get_group(self):
-		return self.group
-	
-	def get_stats(self):
-		return self.stats
-
-	def set_id(self, id):
-		self.id = id
-
-	def set_name(self, name):
-		self.name = name
-
-	def set_group(self, group):
-		self.group = group
-
-	def set_stats(self, stats):
-		self.stats = stats
-	
-	def __str__(self) -> str:
-		return f"({self.group}) {self.name}: {self.stats}"
-	
-	def to_dict(self):
-		return {
-			"id": self.id,
-			"name": self.name,
-			"stats": self.stats
-		}
 
 
 class Cup(ISerializable):
@@ -201,77 +139,3 @@ class Cup(ISerializable):
 		for group in self.groups:
 			num_teams += len(self.groups[group])
 		return num_teams
-
-
-class Standing(ISerializable):
-	def __init__(self, team: Team = None, goals: int = 0, score: int = 0) -> None:
-		self.team = team
-		self.goals = goals
-		self.score = score
-	
-	def get_team(self):
-		return self.team
-	
-	def get_goals(self):
-		return self.goals
-	
-	def get_score(self):
-		return self.score
-
-	def set_goals(self, goals: int):
-		self.goals = goals
-
-	def set_score(self, score: int):
-		self.score = score
-
-	def deep_copy(self):
-		return copy.deepcopy(self)
-
-	def __str__(self) -> str:
-		return f"({self.get_goals()}, {self.get_score()}) {self.team.get_name()}"
-
-class Match(ISerializable):
-	def __init__(self, s1: Standing, s2: Standing, criteria: Criterias) -> None:
-		self.criteria = criteria
-		self.winner = None
-		self.winner_index = None
-		self.loser = None
-		self.tie = False
-		self._faceoff(s1, s2, criteria)
-	
-	def _faceoff(self, standing1: Standing, standing2: Standing, criteria: Criterias, definitive = False):
-		crtr1 = standing1.get_team().get_stats()[criteria.name]
-		crtr2 = standing2.get_team().get_stats()[criteria.name]
-		if crtr1 > crtr2:
-			self.winner = standing1
-			self.loser = standing2
-			self.winner_index = 0
-		elif crtr1 < crtr2:
-			self.winner = standing2
-			self.loser = standing1
-			self.winner_index = 1
-		elif not definitive:
-			self._faceoff(standing1, standing2, Criterias((criteria.value + 1) % 4), True)
-			return
-		else:
-			self.tie = True
-			self.winner_index = random.randint(0, 1)
-			self.winner = [standing1, standing2][self.winner_index]
-			self.winner.set_score(self.winner.get_score() + 1)
-			return
-		self.winner.set_score(self.winner.get_score() + 3)
-	
-	def get_criteria(self):
-		return self.criteria
-	
-	def get_winner(self):
-		return self.winner
-	
-	def get_winner_index(self):
-		return self.winner_index
-
-	def get_loser(self):
-		return self.loser
-	
-	def is_tied(self):
-		return self.tie
