@@ -1,9 +1,7 @@
 from typing import Tuple
-import random
 import pygame as pg
 from pygame._sdl2 import Window
 
-from model.Cup import Cup
 from model.BinaryTree import BinaryTree
 from model.Standing import Standing
 
@@ -12,7 +10,8 @@ class PyGame:
 	def __init__(self, window_size: Tuple[int, int] = (1280, 720), caption: str = ""):
 		pg.init()
 		pg.font.init()
-		self.FONT = pg.font.Font(size=24)
+		self.FONT = pg.font.Font("./src/soccer-brackets/view/fonts/Akshar/static/Akshar-Regular.ttf", 13)
+		#self.FONT = pg.font.Font("./src/soccer-brackets/view/fonts/VT323/VT323-Regular.ttf", 14)
 
 		self.window = pg.display.set_mode(window_size, pg.RESIZABLE)
 		Window.from_display_module().maximize()
@@ -68,23 +67,51 @@ class PyGame:
 
 class PyGameGraph(PyGame):
 	def __init__(
-		self, cup: Cup, window_size: Tuple[int, int] = (1280, 720), caption: str = ""
+		self, tree: BinaryTree, window_size: Tuple[int, int] = (1366, 768), caption: str = ""
 	):
 		super().__init__(window_size, caption)
-		self.cup = cup
-		self.tree: BinaryTree = self.cup.get_jornadas()[-1][0] if self.cup.get_jornadas() else None
+		self.tree = tree
+		self.node_radius = 20
+		self.background = pg.image.load("./src/soccer-brackets/view/images/Zakumi-BnW.png")
+	
+	def draw_tree(self, tree: BinaryTree, position: tuple[int]):
+		if tree:
+			self.draw_node(tree, position)
+			offset_x = 2 ** (tree.height(tree) - 2) * 0.03 * self.window.get_size()[0]
+			if tree.get_left():
+				# pos_left = (center - offset, top + trivial_value * diameter)
+				pos_left = (position[0] - offset_x, position[1] + tree.height(tree) * 2 * self.node_radius)
+				pg.draw.line(self.surfaces["bg"][1], "coral", position, pos_left, 3)
+				self.draw_tree(tree.get_left(), pos_left)
+			if tree.get_right():
+				pos_right = (position[0] + offset_x, position[1] + tree.height(tree) * 2 * self.node_radius)
+				pg.draw.line(self.surfaces["bg"][1], "coral", position, pos_right, 3)
+				self.draw_tree(tree.get_right(), pos_right)
 	
 	def game(self):
+		self.background = pg.transform.scale(self.background, self.window.get_size())
+		self.surfaces["bg"][0].blit(self.background, self.window.get_rect())
 		if self.tree:
-			self.tree.in_order(self.tree, self.draw_node)
+			self.draw_tree(
+				self.tree,
+				(
+					self.window.get_size()[0] / 2,
+					self.window.get_size()[1] / 12
+				)
+			)
 			
 	def draw_node(self, tree: BinaryTree, position: tuple[int] = (800, 450)):
 		node: Standing = tree.get_node()
-		label = node.get_team().get_name()
-		position = (random.randint(100, 1600), position[1] - 50 * tree.height(tree))
-		rect = pg.draw.circle(self.surfaces["bg"][0], "lime", position, 30, 3)
-		font = self.FONT.render(f"{label}", True, "purple")
-		self.surfaces["fg"][0].blit(font, font.get_rect(center=rect.center))
+		team_name = self.FONT.render(node.get_team().get_name(), True, "purple", "lightgreen")
+		team_scores = self.FONT.render(f"{node.get_goals()}", True, "purple", "lightgreen")
+		
+		circle = pg.draw.circle(self.surfaces["bg"][2], "purple", position, self.node_radius)
+		self.surfaces["fg"][0].blit(team_name, team_name.get_rect(center=circle.center))
+		self.surfaces["fg"][0].blit(team_scores, team_scores.get_rect(center=(circle.center[0], circle.center[1] + 30)))
+
+	# TODO
+	def highlight_path(self):
+		pass
 
 	def __str__(self):
 		pass

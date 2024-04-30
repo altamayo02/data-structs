@@ -89,7 +89,7 @@
       <rect>
        <x>90</x>
        <y>70</y>
-       <width>111</width>
+       <width>121</width>
        <height>25</height>
       </rect>
      </property>
@@ -365,7 +365,7 @@
        <x>20</x>
        <y>20</y>
        <width>311</width>
-       <height>381</height>
+       <height>361</height>
       </rect>
      </property>
      <property name="autoScroll">
@@ -465,6 +465,19 @@
        <string>A</string>
       </property>
      </item>
+    </widget>
+    <widget class="QPushButton" name="pushButtonDescalificar">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>390</y>
+       <width>121</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Descalificar equipo</string>
+     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBoxSimulacion">
@@ -587,8 +600,15 @@
     <property name="title">
      <string>Archivo</string>
     </property>
+    <widget class="QMenu" name="menuCargarCopaReciente">
+     <property name="title">
+      <string>Cargar copa reciente</string>
+     </property>
+     <addaction name="actionCopaReciente0"/>
+    </widget>
     <addaction name="actionNuevaCopa"/>
     <addaction name="actionCargarCopa"/>
+    <addaction name="menuCargarCopaReciente"/>
     <addaction name="actionGuardarCopa"/>
     <addaction name="actionGuardarCopaComo"/>
     <addaction name="separator"/>
@@ -619,6 +639,11 @@
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionCopaReciente0">
+   <property name="text">
+    <string>E:/Projects/Code/2024-1/data-structs/src/soccer-brackets/data/data.json</string>
    </property>
   </action>
  </widget>

@@ -83,6 +83,11 @@ class QtUI:
 		actn_load: QAction = self.main_window.findChild(QAction, "actionCargarCopa")
 		actn_load.triggered.connect(slots["load"])
 
+		actn_load_recent: QAction = self.main_window.findChild(QAction, "actionCopaReciente0")
+		actn_load_recent.triggered.connect(
+			lambda: slots["load"](self.json_service.load_json(actn_load_recent.text()))
+		)
+
 	def update_groups(self, groups: dict):
 		tree_groups: QTreeWidget = self.main_window.findChild(QTreeWidget, "treeWidgetGrupos")
 		tree_groups.sortByColumn(0, Qt.SortOrder.AscendingOrder)
@@ -138,11 +143,16 @@ class QtUI:
 					standing: Standing = bintree.get_node()
 					tree_team.setText(0, f"(N/A) {standing.get_team().get_name()}")
 					tree_jornada.addChild(tree_team)
+			if len(jornadas[j]) < 32:
+				btn_visualize: QPushButton = self.main_window.findChild(QPushButton, "pushButtonVisualizar")
+				btn_visualize.setDisabled(True)
 			if len(jornadas[j]) < 2:
 				btn_simulate: QPushButton = self.main_window.findChild(QPushButton, "pushButtonSimular")
 				btn_simulate.setDisabled(True)
+				
+				btn_visualize: QPushButton = self.main_window.findChild(QPushButton, "pushButtonVisualizar")
+				btn_visualize.setEnabled(True)
 			tree_jornadas.addTopLevelItem(tree_jornada)
-		tree_jornadas.expandAll()
 
 	def show(self):
 		self.main_window.show()

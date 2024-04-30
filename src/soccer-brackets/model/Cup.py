@@ -7,6 +7,7 @@ from model.Match import Match
 from model.Standing import Standing
 from model.Team import Team
 from view.QtUI import QtUI
+from view.PyGameGraph import PyGameGraph
 
 
 class Cup(ISerializable):
@@ -60,6 +61,10 @@ class Cup(ISerializable):
 				f"El equipo {group} ya tiene 4 integrantes. Ingrese el equipo a otro grupo."
 			)
 
+	# TODO
+	def disqualify_team(self):
+		pass
+
 	def simulate_jornada(self, id_criteria: int):
 		num_teams = self.count_teams()
 		if num_teams != 32:
@@ -108,11 +113,18 @@ class Cup(ISerializable):
 					self.jornadas[0].append(BinaryTree(winner))
 		self.ui.update_jornadas(self.jornadas)
 
+	# TODO - Show all possibilities
 	def show_brackets(self):
-		print("Pendiente: Dibujar llaves")
+		pgg = PyGameGraph(self.get_jornadas()[-1][0])
+		pgg.run()
 
-	def load_data(self):
-		data = self.ui.open_file()
+	# TODO
+	def show_earnings(self):
+		pass
+
+	def load_data(self, data: dict):
+		if not data:
+			data = self.ui.open_file()
 		for g in data:
 			group: list[dict] = data[g]
 			self.groups[g] = [Team(
