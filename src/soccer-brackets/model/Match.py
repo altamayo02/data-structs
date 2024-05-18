@@ -17,6 +17,9 @@ class Match(ISerializable):
 	def _faceoff(self, standing1: Standing, standing2: Standing, criteria: Criterias, definitive = False):
 		crtr1 = standing1.get_team().get_stats()[criteria.name]
 		crtr2 = standing2.get_team().get_stats()[criteria.name]
+		if criteria.name == "ACCURACY":
+			crtr1 = ["Baja", "Media", "Alta"].index(crtr1)
+			crtr2 = ["Baja", "Media", "Alta"].index(crtr2)
 		if crtr1 > crtr2:
 			self.winner = standing1
 			self.loser = standing2

@@ -31,6 +31,8 @@ class Cup(ISerializable):
 			}
 		)
 		self.jornadas: list[list[BinaryTree]] = []
+		self.group_size = 4
+		self.num_groups = 8
 
 	def get_ui(self) -> QtUI:
 		return self.ui
@@ -40,6 +42,15 @@ class Cup(ISerializable):
 
 	def get_jornadas(self) -> BinaryTree:
 		return self.jornadas
+
+	def get_group_size(self):
+		return self.group_size
+
+	def get_num_groups(self):
+		return self.num_groups
+
+	def get_max_teams(self):
+		return self.num_groups * self.group_size
 
 	def add_team(self):
 		data = self.ui.get_team_form_data()
@@ -58,7 +69,8 @@ class Cup(ISerializable):
 			self.ui.update_groups(self.groups)
 		else:
 			self.ui.warn(
-				f"El equipo {group} ya tiene 4 integrantes. Ingrese el equipo a otro grupo."
+				f"El equipo {group} ya tiene {len(self.groups[group])} integrantes." +
+				"Ingrese el equipo a otro grupo."
 			)
 
 	# TODO
@@ -67,8 +79,11 @@ class Cup(ISerializable):
 
 	def simulate_jornada(self, id_criteria: int):
 		num_teams = self.count_teams()
-		if num_teams != 32:
-			self.ui.warn(f"Se requieren 32 equipos para simular la copa. Se han recibido: {num_teams}")
+		if num_teams != self.get_max_teams():
+			self.ui.warn(
+				f"Se requieren {self.get_max_teams()} equipos para simular la copa." +
+				f"Se han recibido: {num_teams}"
+			)
 			return
 		if len(self.jornadas) > 0:
 			self.jornadas.append([])
