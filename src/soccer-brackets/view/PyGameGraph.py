@@ -74,9 +74,9 @@ class PyGameGraph(PyGame):
 		self.node_radius = 20
 		self.background = pg.image.load("./src/soccer-brackets/view/images/Zakumi-BnW.png")
 	
-	def draw_tree(self, tree: BinaryTree, position: tuple[int]):
+	def draw_tree(self, tree: BinaryTree, position: tuple[int], is_root = False):
 		if tree:
-			self.draw_node(tree, position)
+			self.draw_node(tree, position, is_root)
 			offset_x = 2 ** (tree.height(tree) - 2) * 0.03 * self.window.get_size()[0]
 			if tree.get_left():
 				# pos_left = (center - offset, top + trivial_value * diameter)
@@ -97,17 +97,19 @@ class PyGameGraph(PyGame):
 				(
 					self.window.get_size()[0] / 2,
 					self.window.get_size()[1] / 12
-				)
+				),
+				True
 			)
 			
-	def draw_node(self, tree: BinaryTree, position: tuple[int] = (800, 450)):
+	def draw_node(self, tree: BinaryTree, position: tuple[int] = (800, 450), is_root = False):
 		node: Standing = tree.get_node()
 		team_name = self.FONT.render(node.get_team().get_name(), True, "purple", "lightgreen")
-		team_scores = self.FONT.render(f"{node.get_goals()}", True, "purple", "lightgreen")
-		
 		circle = pg.draw.circle(self.surfaces["bg"][2], "purple", position, self.node_radius)
 		self.surfaces["fg"][0].blit(team_name, team_name.get_rect(center=circle.center))
-		self.surfaces["fg"][0].blit(team_scores, team_scores.get_rect(center=(circle.center[0], circle.center[1] + 30)))
+		
+		if not is_root:
+			team_scores = self.FONT.render(f"{node.get_goals()}", True, "purple", "lightgreen")
+			self.surfaces["fg"][0].blit(team_scores, team_scores.get_rect(center=(circle.center[0], circle.center[1] + 30)))
 
 	# TODO
 	def highlight_path(self):

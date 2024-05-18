@@ -62,7 +62,6 @@ class QtUI:
 		}
 
 	def get_sim_form_data(self):
-		test = QComboBox()
 		return {
 			"criteria": self.get_main_widget().findChild(QComboBox, "comboBoxCriterio").currentIndex()
 		}
