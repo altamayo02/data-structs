@@ -605,6 +605,7 @@
       <string>Cargar copa reciente</string>
      </property>
      <addaction name="actionCopaReciente0"/>
+     <addaction name="actionCopaReciente1"/>
     </widget>
     <addaction name="actionNuevaCopa"/>
     <addaction name="actionCargarCopa"/>
@@ -644,6 +645,11 @@
   <action name="actionCopaReciente0">
    <property name="text">
     <string>E:/Projects/Code/2024-1/data-structs/src/soccer-brackets/data/data.json</string>
+   </property>
+  </action>
+  <action name="actionCopaReciente1">
+   <property name="text">
+    <string>C:/uni/data-structs/src/soccer-brackets/data/data.json</string>
    </property>
   </action>
  </widget>
