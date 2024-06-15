@@ -107,6 +107,7 @@ class Visualizer(PyGame):
 				self.current_pos = pos
 				
 
+		stats = {str(i): 0 for i in range(6)}
 		for i in range(len(self.matrix)):
 			for j in range(len(self.matrix)):
 				rect = pg.rect.Rect(i * self.CELL_SIZE, j * self.CELL_SIZE, self.CELL_SIZE, self.CELL_SIZE)
@@ -114,10 +115,14 @@ class Visualizer(PyGame):
 				pg.draw.rect(self.surfaces["bg"][0], (0, 255, 0, 255 * self.matrix[i][j]), rect)
 				heat = self.FONT.render(f"{int(5 * self.matrix[i][j])}", True, color if self.matrix[i][j] < 1 else (0, 255, 255, 255 * self.matrix[i][j]), "black")
 				self.surfaces["fg"][0].blit(heat, heat.get_rect(center=rect.center))
+
+				stats[str(int(5 * self.matrix[i][j]))] += 1
 		
 		pg.draw.rect(self.surfaces["fg"][2], (0, 0, 0, 127), self.window.get_rect())
 		txt_offset = self.FONT.render(f"{self.offset}", True, "purple", "black")
-		self.window.blit(txt_offset, txt_offset.get_rect(centerx=self.window.get_rect().centerx))
+		self.surfaces["fg"][2].blit(txt_offset, txt_offset.get_rect(centerx=self.window.get_rect().centerx))
+		txt_stats = self.FONT.render(f"{stats}", True, "purple", "black")
+		self.surfaces["fg"][2].blit(txt_stats, (txt_stats.get_rect(centerx=self.window.get_rect().centerx).x, txt_stats.get_rect().bottom))
 
 	def refresh(self):
 		for i in range(len(self.matrix)):
@@ -151,7 +156,7 @@ class Visualizer(PyGame):
 		return True
 
 def main():
-	v = Visualizer(caption="N Queens", n=8)
+	v = Visualizer(caption="N Queens", n=7)
 	v.run()
 
 if __name__ == "__main__":

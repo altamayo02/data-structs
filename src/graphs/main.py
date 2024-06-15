@@ -13,6 +13,9 @@ g.connect('b', 'd', 11)
 g.connect('b', 'e', 5)
 g.connect('c', 'e', 3)
 
+print(g.depth_first_search('a'))
+print(g.breadth_first_search('a'))
+
 del g
 
 g = NDGraph()
@@ -22,6 +25,10 @@ g.add(Point((5, 9)))
 g.add(Point((4, 3)))
 g.add(Point((11, 6)))
 g.add(Point((1, 1)))
+
+# Nope
+""" print(g.depth_first_search('a'))
+print(g.breadth_first_search('a')) """
 
 del g
 
@@ -44,9 +51,10 @@ g.connect('e', 'f', True)
 g.connect('e', 'g', True)
 g.connect('f', 'g', True)
 
-for vertex in g.get_nodes():
-    g.breadth_first_search(vertex)
-    print()
+for node in g.get_nodes():
+    print("Breadth:", g.breadth_first_search(node))
+    print("Depth:", g.depth_first_search(node))
+print(g.primm('a'))
 
 del g
 
@@ -75,15 +83,21 @@ g.connect(50, 55, 1)
 g.connect(55, 60, 1)
 g.connect(60, 65, 1)
 
-dijkstra = {}
+""" dijkstra = {}
 lifespan = 2
 
 possible = []
 for terminal in dijkstra:
     if dijkstra[terminal] <= lifespan:
-        possible.append(terminal)
+        possible.append(terminal) """
 
-g = NDGraph()
+print(g.get_shallow_adjacents(35))
+print(g.get_adjacents(35))
+print(g.bellman_ford(35))
+
+del g
+
+""" g = NDGraph()
 g.add('A')
 g.add('B')
 g.add('C')
@@ -107,12 +121,17 @@ g.connect('E', 'F', 7)
 g.connect('E', 'G', 5)
 g.connect('E', 'H', 1)
 g.connect('F', 'H', 3)
-g.connect('F', 'G', 9)
-
+g.connect('F', 'G', 9) """
+""" 
 g.breadth_first_search('A')
 g.depth_first_search('A')
 g.dijkstra('A')
-g.floyd_warshall()
+g.floyd_warshall() """
 
-del g
+# So far in class we've studied:
+""" 
+Components: Backtracking with DFS
+BACKTRACKING ASF, DFS, BFS
+Hamiltonian paths
 
+"""
