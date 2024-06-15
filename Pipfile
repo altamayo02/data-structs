@@ -7,6 +7,7 @@ name = "pypi"
 pillow = "*"
 pyside6 = "*"
 pygame = "*"
+mesa = "*"
 
 [dev-packages]
 
